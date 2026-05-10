@@ -1,0 +1,19 @@
+image: python:3.12
+
+stages:
+  - build
+  - reproducibility
+
+build_model:
+  stage: build
+  script:
+    - echo "запускаем пайплайн..."
+    - pip install -r requirements.txt
+    - python ml_pipeline.py
+
+make_pipeline_reproducible:
+  stage: reproducibility
+  script:
+    - echo "Проверяем воспроизводимость окружения..."
+    - pip freeze > requirements_locked.txt
+    - cat requirements_locked.txt
